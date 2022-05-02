@@ -1,6 +1,6 @@
 # SNAX
 ##
-The test ids of the tweets are in `datasets/input/split_test` (`S.id`,`N.id` contain only the real samples' ids). In `datasets/input/split_test/train.id` there are all the ids used for the training (except those that are in `N` and `S`).
+The test ids of the tweets are in `datasets/input/split_test` (`S.id`,`N.id` contain only the real samples' ids). In `datasets/input/split_test/train.id` there are all the ids used for the training (except those that are artificial `N` and `S` samples).
 
 In `datasets/input/split_test/neg_spec_samples.csv` you can find the negated/speculated samples. Following the Twitter policy the other tweets cannot be shared.
 
