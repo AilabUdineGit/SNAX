@@ -58,8 +58,8 @@ def build_row_iob(row, nlp):
     corr = [(s,e, "ADR") for (s,e) in corr]
     pred = [(s,e, "ADR") for (s,e) in pred]
 
-    token,tag_correct = tagger(nlp(row.tweet), corr)
-    _, tag_pred =  tagger(nlp(row.tweet_normalized), pred)
+    token,tag_correct = tagger(nlp(row.text), corr)
+    _, tag_pred =  tagger(nlp(row.text_normalized), pred)
 
     row['tokens'] = token
     row['iob_correct'] = tag_correct

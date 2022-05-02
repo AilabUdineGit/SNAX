@@ -23,15 +23,15 @@ class NegExScope():
         iob_tags_list = list()
         overlpapper = IntervalMerger()
         for i,elem in df.iterrows():
-            if type(elem.tweet) == str:
-                doc = self.nlp(elem.tweet)
+            if type(elem.text) == str:
+                doc = self.nlp(elem.text)
                 annotations = overlpapper.merge([[e.start_char, e.end_char] for e in doc.ents if e._.negex])
                 iob_tags = self.biluo_to_iob(biluo_tags_from_offsets(doc, [(s,e,"") for s,e in annotations]))
                 intervals.append(annotations)
                 iob_tags_list.append(iob_tags)
             else:
                 self.err +=1 
-        df['negation_intervals'] = intervals
+        df['phen_intervals'] = intervals
         df['negation_scope_iob'] = iob_tags_list
 
         return df

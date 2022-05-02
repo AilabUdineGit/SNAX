@@ -35,7 +35,7 @@ class Tokenizer():
             for (s,e) in row.correct_intervals:
                 new_df = new_df.append(pd.Series({
                     "text_id": idx,
-                    "text": row.tweet,
+                    "text": row.text,
                     "begin": int(s),
                     "end": int(e),
                     "type": "ADR"
@@ -54,7 +54,7 @@ class Tokenizer():
         new_df = pd.DataFrame({})
 
         for idz,row in df.iterrows():
-            doc = self.nlp(row.tweet)
+            doc = self.nlp(row.text)
 
             CLS = self._tokenizer.cls_token
             PAD = self._tokenizer.pad_token

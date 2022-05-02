@@ -17,7 +17,6 @@ predictions_file_path = os.path.join("..","datasets","input","model_predictions"
 check_file_exists(predictions_file_path)
 model_id = predictions_file.split(".")[0]
 
-# original dataset with columns tweet_id and tweet
 only_texts_file = ... # name of the predictions file here
 check_pickle_extension(only_texts_file)
 dataset_texts_path = os.path.join("..","datasets","input","to_evaluate", only_texts_file)

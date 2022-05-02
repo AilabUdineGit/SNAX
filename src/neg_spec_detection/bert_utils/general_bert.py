@@ -35,13 +35,13 @@ class GeneralBert():
             self.train()
         else:
             print("Loading the trained model...")
-            load_model()
+            self.load_model()
 
     def load_model(self):
         self.model = PhenomenonDetectionModel(bert_type="bert")
         model_path = os.path.join(self.models_path, self.model_name)
         if not os.path.exists(model_path):
-            print("The model doesn't exists, I will train it!")
+            print("The model doesn't exists, it will be trained!")
             self.train()
         self.model.load_state_dict(torch.load(model_path))
         self.model.to(self.device)
@@ -138,7 +138,7 @@ class GeneralBert():
 
     def predict(self,df):
         df = df.sample(frac=1)
-        tokenizer = Tokenizer(df=df,sample="tweet",span="correct_intervals",id="tweet_id", is_bioscope = False)
+        tokenizer = Tokenizer(df=df,sample="text",span="correct_intervals",id="text_id", is_bioscope = False)
         tokenizer.tokenize_evaluation()
         df = tokenizer.get_augmented_df()
         bert_tokenizer = tokenizer.get_tokenizer()
@@ -178,10 +178,10 @@ class GeneralBert():
                 for t in row.bert_tokens:
                     if t not in bert_tokenizer.all_special_tokens:
                         tokens.append(t)
-                intervals = get_predictions(row.tweet, tokens, pred[1:first_zero-1], bert_tokenizer, nlp)
-                row['negation_intervals'] = intervals
+                intervals = get_predictions(row.text, tokens, pred[1:first_zero-1], bert_tokenizer, nlp)
+                row['phen_intervals'] = intervals
                 new_df = new_df.append(row)
 
-            new_df = new_df.drop(columns=['bert_tokens', 'bert_ids','mask'])
+            #new_df = new_df.drop(columns=['bert_tokens', 'bert_ids','mask'])
             
             return new_df

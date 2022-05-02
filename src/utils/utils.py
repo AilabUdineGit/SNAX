@@ -25,10 +25,10 @@ def get_metrics(df,ids_path):
 def save_results(df_all, df_cut, model, dataset_to_evaluate, results_path, splits_folder, phen_model):
     date = datetime.now().strftime("[%d/%m/%Y_%H:%M:%S]")
 
-    negade_path     = os.path.join(splits_folder, "negade.id")
-    specade_path    = os.path.join(splits_folder, "specade.id")
-    noade_path      = os.path.join(splits_folder, "noade.id")
-    ade_path        = os.path.join(splits_folder, "ade.id")
+    specade_path    = os.path.join(splits_folder, "S.id")
+    negade_path     = os.path.join(splits_folder, "N.id")
+    ade_path        = os.path.join(splits_folder, "A.id")
+    noade_path      = os.path.join(splits_folder, "X.id")
 
     # save dataframe
     save_model_name = model.replace("/","_")
@@ -149,14 +149,14 @@ def save_results(df_all, df_cut, model, dataset_to_evaluate, results_path, split
 def get_evaluated_raw_dataset(path):
     df = pd.read_pickle(path)
     if "doc_id" in df.columns:
-        df = df.rename(columns={'doc_id': "tweet_id", "text": "tweet"})
-    df = df.set_index("tweet_id")
+        df = df.rename(columns={'doc_id': "text_id"})
+    df = df.set_index("text_id")
     return df
 
 
 def merge_phen_intervals(df_neg, df_spec, row):
     id = row.name
-    row["negation_intervals"] = df_neg.loc[id,"negation_intervals"] +  df_spec.loc[id,"negation_intervals"]
+    row["phen_intervals"] = df_neg.loc[id,"phen_intervals"] +  df_spec.loc[id,"phen_intervals"]
     return row
 
 
